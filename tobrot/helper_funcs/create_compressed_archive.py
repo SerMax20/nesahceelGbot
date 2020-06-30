@@ -1,8 +1,11 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-# (c) Shrimadhav U K | gautamajay52
+# Copyright (C) 2020 by surlogu@Github, < https://github.com/surlogu>.
+#
+# This file is part of < https://github.com/surlogu/AsEnLEECH > project,
+# and is released under the "GNU v3.0 License Agreement".
+# Please see < https://github.com/surlogu/AsEnLEECH/blob/master/LICENSE >
+#
+# All rights reserved.
 
-# the logging things
 import logging
 logging.basicConfig(
     level=logging.DEBUG,
