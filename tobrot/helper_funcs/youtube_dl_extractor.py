@@ -11,19 +11,22 @@ logging.basicConfig(
     level=logging.DEBUG,
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 )
-
+logging.getLogger("pyrogram").setLevel(logging.WARNING)
 LOGGER = logging.getLogger(__name__)
+
+
 import asyncio
 from tobrot.helper_funcs.display_progress import humanbytes
 import json
 import os
 import pyrogram
-logging.getLogger("pyrogram").setLevel(logging.WARNING)
 
 from tobrot import (
     DEF_THUMB_NAIL_VID_S
 )
-async def extract_youtube_dl_formats(url, user_working_dir):
+
+
+async def extract_youtube_dl_formats(url, yt_dl_user_name, yt_dl_pass_word, user_working_dir):
     command_to_exec = [
         "youtube-dl",
         "--no-warnings",
@@ -34,6 +37,14 @@ async def extract_youtube_dl_formats(url, user_working_dir):
     if "hotstar" in url:
         command_to_exec.append("--geo-bypass-country")
         command_to_exec.append("IN")
+    #
+    if yt_dl_user_name is not None:
+        command_to_exec.append("--username")
+        command_to_exec.append(yt_dl_user_name)
+    if yt_dl_pass_word is not None:
+        command_to_exec.append("--password")
+        command_to_exec.append(yt_dl_pass_word)
+
     LOGGER.info(command_to_exec)
     process = await asyncio.create_subprocess_exec(
         *command_to_exec,
