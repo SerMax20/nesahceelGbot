@@ -11,21 +11,23 @@ logging.basicConfig(
     level=logging.DEBUG,
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 )
-
+logging.getLogger("pyrogram").setLevel(logging.WARNING)
 LOGGER = logging.getLogger(__name__)
 
 import aria2p
 import asyncio
 import os
-from tobrot.helper_funcs.upload_to_tg import upload_to_tg
-from tobrot.helper_funcs.create_compressed_archive import create_archive
+from tobrot.helper_funcs.upload_to_tg import upload_to_tg, upload_to_gdrive
+from tobrot.helper_funcs.create_compressed_archive import create_archive, unzip_me, unrar_me, untar_me
+from tobrot.helper_funcs.extract_link_from_message import extract_link
 
 from tobrot import (
     ARIA_TWO_STARTED_PORT,
     MAX_TIME_TO_WAIT_FOR_TORRENTS_TO_START,
     AUTH_CHANNEL,
     DOWNLOAD_LOCATION,
-    EDIT_SLEEP_TIME_OUT
+    EDIT_SLEEP_TIME_OUT,
+    CUSTOM_FILE_NAME
 )
 
 
@@ -40,14 +42,14 @@ async def aria_start():
     # but for now, https://t.me/TrollVoiceBot?start=858
     aria2_daemon_start_cmd.append("--enable-rpc")
     aria2_daemon_start_cmd.append("--follow-torrent=mem")
-    aria2_daemon_start_cmd.append("--max-connection-per-server=16")
+    aria2_daemon_start_cmd.append("--max-connection-per-server=10")
     aria2_daemon_start_cmd.append("--min-split-size=10M")
     aria2_daemon_start_cmd.append("--rpc-listen-all=false")
     aria2_daemon_start_cmd.append(f"--rpc-listen-port={ARIA_TWO_STARTED_PORT}")
     aria2_daemon_start_cmd.append("--rpc-max-request-size=1024M")
     aria2_daemon_start_cmd.append("--seed-ratio=0.0")
     aria2_daemon_start_cmd.append("--seed-time=1")
-    aria2_daemon_start_cmd.append("--split=16")
+    aria2_daemon_start_cmd.append("--split=10")
     aria2_daemon_start_cmd.append(f"--bt-stop-timeout={MAX_TIME_TO_WAIT_FOR_TORRENTS_TO_START}")
     #
     LOGGER.info(aria2_daemon_start_cmd)
@@ -131,7 +133,11 @@ async def call_apropriate_function(
     incoming_link,
     c_file_name,
     sent_message_to_update_tg_p,
-    is_zip
+    is_zip,
+    cstom_file_name,
+    is_unzip,
+    is_unrar,
+    is_untar
 ):
     if incoming_link.lower().startswith("magnet:"):
         sagtus, err_message = add_magnet(aria_instance, incoming_link, c_file_name)
@@ -175,6 +181,34 @@ async def call_apropriate_function(
         if check_if_file is not None:
             to_upload_file = check_if_file
     #
+    if is_unzip:
+        check_ifi_file = await unzip_me(to_upload_file)
+        if check_ifi_file is not None:
+            to_upload_file = check_ifi_file
+    #
+    if is_unrar:
+        check_ife_file = await unrar_me(to_upload_file)
+        if check_ife_file is not None:
+            to_upload_file = check_ife_file
+    #
+    if is_untar:
+        check_ify_file = await untar_me(to_upload_file)
+        if check_ify_file is not None:
+            to_upload_file = check_ify_file
+    #
+    if to_upload_file:
+        if CUSTOM_FILE_NAME:
+            os.rename(to_upload_file, f"{CUSTOM_FILE_NAME}{to_upload_file}")
+            to_upload_file = f"{CUSTOM_FILE_NAME}{to_upload_file}"
+        else:
+            to_upload_file = to_upload_file
+
+    if cstom_file_name:
+        os.rename(to_upload_file, cstom_file_name)
+        to_upload_file = cstom_file_name
+    else:
+        to_upload_file = to_upload_file
+    #
     response = {}
     LOGGER.info(response)
     user_id = sent_message_to_update_tg_p.reply_to_message.from_user.id
@@ -209,6 +243,173 @@ async def call_apropriate_function(
         disable_web_page_preview=True
     )
     return True, None
+#
+
+async def call_apropriate_function_g(
+    aria_instance,
+    incoming_link,
+    c_file_name,
+    sent_message_to_update_tg_p,
+    is_zip,
+    cstom_file_name,
+    is_unzip,
+    is_unrar,
+    is_untar,
+    user_message
+):
+    if incoming_link.lower().startswith("magnet:"):
+        sagtus, err_message = add_magnet(aria_instance, incoming_link, c_file_name)
+    elif incoming_link.lower().endswith(".torrent"):
+        sagtus, err_message = add_torrent(aria_instance, incoming_link)
+    else:
+        sagtus, err_message = add_url(aria_instance, incoming_link, c_file_name)
+    if not sagtus:
+        return sagtus, err_message
+    LOGGER.info(err_message)
+    # https://stackoverflow.com/a/58213653/4723940
+    await check_progress_for_dl(
+        aria_instance,
+        err_message,
+        sent_message_to_update_tg_p,
+        None
+    )
+    if incoming_link.startswith("magnet:"):
+        #
+        err_message = await check_metadata(aria_instance, err_message)
+        #
+        await asyncio.sleep(1)
+        if err_message is not None:
+            await check_progress_for_dl(
+                aria_instance,
+                err_message,
+                sent_message_to_update_tg_p,
+                None
+            )
+        else:
+            return False, "can't get metadata \n\n#stopped"
+    await asyncio.sleep(1)
+    file = aria_instance.get_download(err_message)
+    to_upload_file = file.name
+    #
+    if is_zip:
+        # first check if current free space allows this
+        # ref: https://github.com/out386/aria-telegram-mirror-bot/blob/master/src/download_tools/aria-tools.ts#L194
+        # archive the contents
+        check_if_file = await create_archive(to_upload_file)
+        if check_if_file is not None:
+            to_upload_file = check_if_file
+    #
+    if is_unzip:
+        check_ifi_file = await unzip_me(to_upload_file)
+        if check_ifi_file is not None:
+            to_upload_file = check_ifi_file
+    #
+    if is_unrar:
+        check_ife_file = await unrar_me(to_upload_file)
+        if check_ife_file is not None:
+            to_upload_file = check_ife_file
+    #
+    if is_untar:
+        check_ify_file = await untar_me(to_upload_file)
+        if check_ify_file is not None:
+            to_upload_file = check_ify_file
+    #
+    if to_upload_file:
+        if CUSTOM_FILE_NAME:
+            os.rename(to_upload_file, f"{CUSTOM_FILE_NAME}{to_upload_file}")
+            to_upload_file = f"{CUSTOM_FILE_NAME}{to_upload_file}"
+        else:
+            to_upload_file = to_upload_file
+
+    if cstom_file_name:
+        os.rename(to_upload_file, cstom_file_name)
+        to_upload_file = cstom_file_name
+    else:
+        to_upload_file = to_upload_file
+    #
+    response = {}
+    LOGGER.info(response)
+    user_id = sent_message_to_update_tg_p.reply_to_message.from_user.id
+    print(user_id)
+    final_response = await upload_to_gdrive(
+        to_upload_file,
+        sent_message_to_update_tg_p,
+        user_message,
+        user_id
+    )
+#
+async def call_apropriate_function_t(
+    to_upload_file_g,
+    sent_message_to_update_tg_p,
+    is_unzip,
+    is_unrar,
+    is_untar
+):
+    #
+    to_upload_file = to_upload_file_g
+    if is_unzip:
+        check_ifi_file = await unzip_me(to_upload_file_g)
+        if check_ifi_file is not None:
+            to_upload_file = check_ifi_file
+    #
+    if is_unrar:
+        check_ife_file = await unrar_me(to_upload_file_g)
+        if check_ife_file is not None:
+            to_upload_file = check_ife_file
+    #
+    if is_untar:
+        check_ify_file = await untar_me(to_upload_file_g)
+        if check_ify_file is not None:
+            to_upload_file = check_ify_file
+    #
+    response = {}
+    LOGGER.info(response)
+    user_id = sent_message_to_update_tg_p.reply_to_message.from_user.id
+    final_response = await upload_to_gdrive(
+        to_upload_file,
+        sent_message_to_update_tg_p
+    )
+    LOGGER.info(final_response)
+    #if to_upload_file:
+        #if CUSTOM_FILE_NAME:
+            #os.rename(to_upload_file, f"{CUSTOM_FILE_NAME}{to_upload_file}")
+            #to_upload_file = f"{CUSTOM_FILE_NAME}{to_upload_file}"
+        #else:
+            #to_upload_file = to_upload_file
+
+    #if cstom_file_name:
+        #os.rename(to_upload_file, cstom_file_name)
+        #to_upload_file = cstom_file_name
+    #else:
+        #to_upload_file = to_upload_file
+    '''
+    
+    LOGGER.info(final_response)
+    message_to_send = ""
+    for key_f_res_se in final_response:
+        local_file_name = key_f_res_se
+        message_id = final_response[key_f_res_se]
+        channel_id = str(AUTH_CHANNEL)[4:]
+        private_link = f"https://t.me/c/{channel_id}/{message_id}"
+        message_to_send += "👉 <a href='"
+        message_to_send += private_link
+        message_to_send += "'>"
+        message_to_send += local_file_name
+        message_to_send += "</a>"
+        message_to_send += "\n"
+    if message_to_send != "":
+        mention_req_user = f"<a href='tg://user?id={user_id}'>Your Requested Files</a>\n\n"
+        message_to_send = mention_req_user + message_to_send
+        message_to_send = message_to_send + "\n\n" + "#uploads"
+    else:
+        message_to_send = "<i>FAILED</i> to upload files. 😞😞"
+    await sent_message_to_update_tg_p.reply_to_message.reply_text(
+        text=message_to_send,
+        quote=True,
+        disable_web_page_preview=True
+    )
+    return True, None
+    '''
 
 
 # https://github.com/jaskaranSM/UniBorg/blob/6d35cf452bce1204613929d4da7530058785b6b1/stdplugins/aria.py#L136-L164
@@ -250,11 +451,13 @@ async def check_progress_for_dl(aria2, gid, event, previous_message):
                     previous_message = msg
             else:
                 msg = file.error_message
+                await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
                 await event.edit(f"`{msg}`")
                 return False
             await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
             await check_progress_for_dl(aria2, gid, event, previous_message)
         else:
+            await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
             await event.edit(f"File Downloaded Successfully: `{file.name}`")
             return True
     except Exception as e:
