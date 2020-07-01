@@ -37,7 +37,7 @@ class Config(object):
     LEECH_COMMAND = os.environ.get("LEECH_COMMAND", "leech")
     YTDL_COMMAND = os.environ.get("YTDL_COMMAND", "ytdl")
     RCLONE_CONFIG = os.environ.get("RCLONE_CONFIG", "")
-    DESTINATION_FOLDER = os.environ.get("DESTINATION_FOLDER", "TorrentLeech-Gdrive")
+    DESTINATION_FOLDER = os.environ.get("DESTINATION_FOLDER", "Asenleech")
     GLEECH_COMMAND = os.environ.get("GLEECH_COMMAND", "gleech")
     INDEX_LINK = os.environ.get("INDEX_LINK", "")
     TELEGRAM_LEECH_COMMAND_G = os.environ.get("TELEGRAM_LEECH_COMMAND_G", "tleech")
