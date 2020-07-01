@@ -16,6 +16,8 @@ from tobrot import (
     RCLONE_CONFIG
 )
 
+
+
 async def check_size_g(client, message):
     #await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
     del_it = await message.reply_text("🔊 Checking size...wait!!!")
@@ -27,8 +29,10 @@ async def check_size_g(client, message):
     process1 = subprocess.Popen(['rclone', 'size', '--config=rclone.conf', 'DRIVE:'f'{destination}'], stdout = subprocess.PIPE, stderr = subprocess.PIPE)
     popi, popp = process1.communicate()
     print(popi)
+    print(popp)
+    print(popp.decode("utf-8"))
     p = popi.decode("utf-8")
     print(p)
     await asyncio.sleep(5)
-    await message.reply_text(f"{p}")
+    await message.reply_text(f"🔊CloudInfo:\n\n{p}")
     await del_it.delete()
