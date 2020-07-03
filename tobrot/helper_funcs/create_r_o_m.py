@@ -14,66 +14,83 @@ logging.basicConfig(
 )
 LOGGER = logging.getLogger(__name__)
 
-import configparser
-
 from pyrogram import (
     InlineKeyboardButton,
     InlineKeyboardMarkup,
     Message
 )
-from tobrot import (
-    R_CLONE_CONF_URI
-)
-from tobrot.helper_funcs.r_clone import (
-    get_r_clone_config
-)
-
 
 async def get_markup(message: Message):
     inline_keyboard = []
     ikeyboard = []
     ikeyboard.append(InlineKeyboardButton(
-        "leech 🤔🤔",
+        "leech",
         callback_data=("leech").encode("UTF-8")
     ))
     ikeyboard.append(InlineKeyboardButton(
-        "youtube-dl",
+        "gleech",
+        callback_data=("gleech").encode("UTF-8")
+    ))
+    ikeyboard.append(InlineKeyboardButton(
+        "ytdl",
         callback_data=("ytdl").encode("UTF-8")
     ))
     inline_keyboard.append(ikeyboard)
     ikeyboard = []
     ikeyboard.append(InlineKeyboardButton(
-        "A leech TAR . GZ  🤔🤔",
-        callback_data=("leecha").encode("UTF-8")
+        "leech TAR .GZ",
+        callback_data=("leech archive").encode("UTF-8")
     ))
     ikeyboard.append(InlineKeyboardButton(
-        "A youtube-dl TAR . GZ",
-        callback_data=("ytdla").encode("UTF-8")
+        "gleech TAR .GZ",
+        callback_data=("gleech archive").encode("UTF-8")
+    ))
+    ikeyboard.append(InlineKeyboardButton(
+        "ytdl TAR .GZ",
+        callback_data=("ytdl archive").encode("UTF-8")
     ))
     inline_keyboard.append(ikeyboard)
     ikeyboard = []
-    if R_CLONE_CONF_URI is not None:
-        r_clone_conf_file = await get_r_clone_config(
-            R_CLONE_CONF_URI,
-            message._client
-        )
-        if r_clone_conf_file is not None:
-            config = configparser.ConfigParser()
-            config.read(r_clone_conf_file)
-            remote_names = config.sections()
-            it_r = 0
-            for remote_name in remote_names:
-                ikeyboard.append(InlineKeyboardButton(
-                    f"RClone LEECH {remote_name}",
-                    callback_data=(f"leech_rc_{it_r}").encode("UTF-8")
-                ))
-                # ikeyboard.append(InlineKeyboardButton(
-                #     f"RClone YTDL {remote_name}",
-                #     callback_data=(f"ytdl_rc_{it_r}").encode("UTF-8")
-                # ))
-                inline_keyboard.append(ikeyboard)
-                ikeyboard = []
-                it_r = it_r + 1
+    ikeyboard.append(InlineKeyboardButton(
+        "leech unzip",
+        callback_data=("leech unzip").encode("UTF-8")
+    ))
+    ikeyboard.append(InlineKeyboardButton(
+        "gleech unzip",
+        callback_data=("gleech unzip").encode("UTF-8")
+    ))
+    ikeyboard.append(InlineKeyboardButton(
+        "ytdl unzip",
+        callback_data=("ytdl unzip").encode("UTF-8")
+    ))
+    inline_keyboard.append(ikeyboard)
+    ikeyboard = []
+    ikeyboard.append(InlineKeyboardButton(
+        "leech unrar",
+        callback_data=("leech unrar").encode("UTF-8")
+    ))
+    ikeyboard.append(InlineKeyboardButton(
+        "gleech unrar",
+        callback_data=("gleech unrar").encode("UTF-8")
+    ))
+    ikeyboard.append(InlineKeyboardButton(
+        "ytdl unrar",
+        callback_data=("ytdl unrar").encode("UTF-8")
+    ))
+    inline_keyboard.append(ikeyboard)
+    ikeyboard = []
+    ikeyboard.append(InlineKeyboardButton(
+        "leech untar",
+        callback_data=("leech untar").encode("UTF-8")
+    ))
+    ikeyboard.append(InlineKeyboardButton(
+        "gleech untar",
+        callback_data=("gleech untar").encode("UTF-8")
+    ))
+    ikeyboard.append(InlineKeyboardButton(
+        "ytdl untar",
+        callback_data=("ytdl untar").encode("UTF-8")
+    ))
     reply_markup = InlineKeyboardMarkup(inline_keyboard)
     inline_keyboard = []
 
