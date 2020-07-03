@@ -23,8 +23,7 @@ from tobrot.helper_funcs.extract_link_from_message import extract_link
 from tobrot.helper_funcs.youtube_dl_button import youtube_dl_call_back
 from tobrot.helper_funcs.download_aria_p_n import (
     call_apropriate_function,
-    aria_start,
-    call_apropriate_function
+    aria_start
 )
 from tobrot.helper_funcs.download_from_link import request_download
 from tobrot.helper_funcs.display_progress import progress_for_pyrogram
