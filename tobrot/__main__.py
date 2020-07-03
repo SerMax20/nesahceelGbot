@@ -49,7 +49,6 @@ from tobrot.plugins.custom_thumbnail import (
     save_thumb_nail,
     clear_thumb_nail
 )
-from tobrot.helper_funcs.download import down_load_media_f
 from tobrot.helper_funcs.custom_filters import message_fliter
 
 
