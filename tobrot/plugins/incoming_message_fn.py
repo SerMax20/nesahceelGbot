@@ -154,7 +154,7 @@ async def incoming_gdrive_message_f(client, message):
             "What you have entered is wrong❌ \nPlease read /help \n"
             f"<b>API Error❗</b>: {cf_name}"
         )
-     i_m_sefg = await message.reply_text("checking ", quote=True)
+    i_m_sefg = await message.reply_text("checking ", quote=True)
     t_, rm_ = await get_markup(message)
     await i_m_sefg.edit_text(
         text=t_,
