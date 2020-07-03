@@ -39,12 +39,12 @@ async def button(bot, update: CallbackQuery):
     cb_data = update.data
     
     if cb_data.startswith("leech"):
-        i_m_sefg = await message.reply_text("processing", quote=True)
-    is_zip = False
-    is_unzip = False
-    is_unrar = False
-    is_untar = False
-    if len(message.command) > 1:
+      i_m_sefg = await message.reply_text("processing", quote=True)
+      is_zip = False
+      is_unzip = False
+      is_unrar = False
+      is_untar = False
+      if len(message.command) > 1:
         if message.command[1] == "archive":
             is_zip = True
         elif message.command[1] == "unzip":
@@ -96,18 +96,18 @@ async def button(bot, update: CallbackQuery):
         )    
     elif cb_data.startswith("gleech"):
         i_m_sefg = await message.reply_text("processing", quote=True)
-    is_zip = False
-    is_unzip = False
-    is_unrar = False
-    is_untar = False
-    if len(message.command) > 1:
-        if message.command[1] == "archive":
+        is_zip = False
+        is_unzip = False
+        is_unrar = False
+        is_untar = False
+        if len(message.command) > 1:
+          if message.command[1] == "archive":
             is_zip = True
-        elif message.command[1] == "unzip":
+          elif message.command[1] == "unzip":
             is_unzip = True
-        elif message.command[1] == "unrar":
+          elif message.command[1] == "unrar":
             is_unrar = True
-        elif message.command[1] == "untar":
+          elif message.command[1] == "untar":
             is_untar = True
     # get link from the incoming message
     dl_url, cf_name, _, _ = await extract_link(message.reply_to_message, "GLEECH")
