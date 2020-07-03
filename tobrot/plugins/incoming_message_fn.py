@@ -29,6 +29,7 @@ from tobrot.helper_funcs.download_from_link import request_download
 from tobrot.helper_funcs.display_progress import progress_for_pyrogram
 from tobrot.helper_funcs.youtube_dl_extractor import extract_youtube_dl_formats
 from tobrot.helper_funcs.admin_check import AdminCheck
+from tobrot.helper_funcs.create_r_o_m import get_markup
 
 async def incoming_purge_message_f(client, message):
     """/purge command"""
@@ -153,6 +154,13 @@ async def incoming_gdrive_message_f(client, message):
             "What you have entered is wrong❌ \nPlease read /help \n"
             f"<b>API Error❗</b>: {cf_name}"
         )
+     i_m_sefg = await message.reply_text("checking ", quote=True)
+    t_, rm_ = await get_markup(message)
+    await i_m_sefg.edit_text(
+        text=t_,
+        reply_markup=rm_,
+        disable_web_page_preview=True
+    )   
 
 async def incoming_youtube_dl_f(client, message):
     """ /ytdl command """
