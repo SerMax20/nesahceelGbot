@@ -183,3 +183,4 @@ if __name__ == "__main__" :
     )
     app.add_handler(incoming_message_handler)
     #
+    app.run()
