@@ -50,6 +50,7 @@ from tobrot.plugins.custom_thumbnail import (
     clear_thumb_nail
 )
 from tobrot.helper_funcs.download import down_load_media_f
+from tobrot.helper_funcs.custom_filters import message_fliter
 
 
 if __name__ == "__main__" :
@@ -63,6 +64,7 @@ if __name__ == "__main__" :
         api_id=APP_ID,
         api_hash=API_HASH,
         workers=343
+        workdir=DOWNLOAD_LOCATION
     )
     #
     incoming_message_handler = MessageHandler(
@@ -70,6 +72,7 @@ if __name__ == "__main__" :
         filters=Filters.command([f"{LEECH_COMMAND}"]) & Filters.chat(chats=AUTH_CHANNEL)
     )
     app.add_handler(incoming_message_handler)
+    app.set_parse_mode("html")
     #
     incoming_gdrive_message_handler = MessageHandler(
         incoming_gdrive_message_f,
@@ -175,3 +178,10 @@ if __name__ == "__main__" :
     app.add_handler(clear_thumb_nail_handler)
     #
     app.run()
+     # 
+    incoming_message_handler = MessageHandler(
+        incoming_message_f,
+        filters=message_fliter & Filters.chat(chats=AUTH_CHANNEL)
+    )
+    app.add_handler(incoming_message_handler)
+    #
