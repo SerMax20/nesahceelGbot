@@ -24,7 +24,7 @@ from tobrot.helper_funcs.youtube_dl_button import youtube_dl_call_back
 from tobrot.helper_funcs.download_aria_p_n import (
     call_apropriate_function,
     aria_start,
-    fake_etairporpa_call
+    call_apropriate_function
 )
 from tobrot.helper_funcs.download_from_link import request_download
 from tobrot.helper_funcs.display_progress import progress_for_pyrogram
@@ -62,7 +62,7 @@ async def button(bot, update: CallbackQuery):
                     os.makedirs(new_download_location)
                 await update.message.edit_text("trying to download")
                 # try to download the "link"
-                sagtus, err_message = await fake_etairporpa_call(
+                sagtus, err_message = await call_apropriate_function(
                     aria_i_p,
                     dl_url,
                     new_download_location,
