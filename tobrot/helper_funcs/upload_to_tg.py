@@ -129,7 +129,7 @@ async def upload_to_tg(
     return dict_contatining_uploaded_files
 #
 
-async def upload_to_gdrive(file_upload, update.message, messa_ge, g_id):
+async def upload_to_gdrive(file_upload, message, messa_ge, g_id):
     await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
     del_it = await update.message.edit_text("🔊 Now Uploading to ☁️ Cloud!!!")
     subprocess.Popen(('touch', 'rclone.conf'), stdout = subprocess.PIPE)
