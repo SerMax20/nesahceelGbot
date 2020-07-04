@@ -42,12 +42,6 @@ async def get_markup(message: Message):
         callback_data=("leecha").encode("UTF-8")
     ))
     ikeyboard.append(InlineKeyboardButton(
-        "GL-TAR.GZ",
-        callback_data=("gleecha").encode("UTF-8")
-    ))
-    inline_keyboard.append(ikeyboard)
-    ikeyboard = []
-    ikeyboard.append(InlineKeyboardButton(
         "L-UNZIP",
         callback_data=("leechzip").encode("UTF-8")
     ))
@@ -62,6 +56,10 @@ async def get_markup(message: Message):
     inline_keyboard.append(ikeyboard)
     ikeyboard = []
     ikeyboard.append(InlineKeyboardButton(
+        "GL-TAR.GZ",
+        callback_data=("gleecha").encode("UTF-8")
+    ))
+    ikeyboard.append(InlineKeyboardButton(
         "GL-UNZIP",
         callback_data=("gleechzip").encode("UTF-8")
     ))
@@ -72,6 +70,20 @@ async def get_markup(message: Message):
     ikeyboard.append(InlineKeyboardButton(
         "GL-UNTAR",
         callback_data=("gleechtar").encode("UTF-8")
+    ))
+    inline_keyboard.append(ikeyboard)
+    ikeyboard = []
+    ikeyboard.append(InlineKeyboardButton(
+        "GL-TAR.GZ",
+        callback_data=("gleecha").encode("UTF-8")
+    ))
+    ikeyboard.append(InlineKeyboardButton(
+        "GL-UNZIP",
+        callback_data=("gleechzip").encode("UTF-8")
+    ))
+    ikeyboard.append(InlineKeyboardButton(
+        "GL-UNRAR",
+        callback_data=("gleechrar").encode("UTF-8")
     ))
     
     reply_markup = InlineKeyboardMarkup(inline_keyboard)
