@@ -39,57 +39,57 @@ async def get_markup(message: Message):
     ikeyboard = []
     ikeyboard.append(InlineKeyboardButton(
         "leech TAR .GZ",
-        callback_data=("leech archive").encode("UTF-8")
+        callback_data=("leecha").encode("UTF-8")
     ))
     ikeyboard.append(InlineKeyboardButton(
         "gleech TAR .GZ",
-        callback_data=("gleech archive").encode("UTF-8")
+        callback_data=("gleecha").encode("UTF-8")
     ))
     ikeyboard.append(InlineKeyboardButton(
         "ytdl TAR .GZ",
-        callback_data=("ytdl archive").encode("UTF-8")
+        callback_data=("ytdla").encode("UTF-8")
     ))
     inline_keyboard.append(ikeyboard)
     ikeyboard = []
     ikeyboard.append(InlineKeyboardButton(
         "leech unzip",
-        callback_data=("leech unzip").encode("UTF-8")
+        callback_data=("leechzip").encode("UTF-8")
     ))
     ikeyboard.append(InlineKeyboardButton(
         "gleech unzip",
-        callback_data=("gleech unzip").encode("UTF-8")
+        callback_data=("gleechzip").encode("UTF-8")
     ))
     ikeyboard.append(InlineKeyboardButton(
         "ytdl unzip",
-        callback_data=("ytdl unzip").encode("UTF-8")
+        callback_data=("ytdlzip").encode("UTF-8")
     ))
     inline_keyboard.append(ikeyboard)
     ikeyboard = []
     ikeyboard.append(InlineKeyboardButton(
         "leech unrar",
-        callback_data=("leech unrar").encode("UTF-8")
+        callback_data=("leechrar").encode("UTF-8")
     ))
     ikeyboard.append(InlineKeyboardButton(
         "gleech unrar",
-        callback_data=("gleech unrar").encode("UTF-8")
+        callback_data=("gleechrar").encode("UTF-8")
     ))
     ikeyboard.append(InlineKeyboardButton(
         "ytdl unrar",
-        callback_data=("ytdl unrar").encode("UTF-8")
+        callback_data=("ytdlrar").encode("UTF-8")
     ))
     inline_keyboard.append(ikeyboard)
     ikeyboard = []
     ikeyboard.append(InlineKeyboardButton(
         "leech untar",
-        callback_data=("leech untar").encode("UTF-8")
+        callback_data=("leechtar").encode("UTF-8")
     ))
     ikeyboard.append(InlineKeyboardButton(
         "gleech untar",
-        callback_data=("gleech untar").encode("UTF-8")
+        callback_data=("gleechtar").encode("UTF-8")
     ))
     ikeyboard.append(InlineKeyboardButton(
         "ytdl untar",
-        callback_data=("ytdl untar").encode("UTF-8")
+        callback_data=("ytdltar").encode("UTF-8")
     ))
     reply_markup = InlineKeyboardMarkup(inline_keyboard)
     inline_keyboard = []
