@@ -174,7 +174,7 @@ async def button(bot, update: CallbackQuery):
                     os.makedirs(new_download_location)
                 await update.message.edit_text("trying to download")
                 # try to download the "link"
-                sagtus, err_message = await call_apropriate_function(
+                sagtus, err_message = await call_apropriate_function_g(
                     aria_i_p,
                     dl_url,
                     new_download_location,
