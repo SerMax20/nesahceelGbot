@@ -77,7 +77,7 @@ if __name__ == "__main__" :
       #  filters=Filters.command([f"{GLEECH_COMMAND}"]) & Filters.chat(chats=AUTH_CHANNEL)
     #)
     #app.add_handler(incoming_gdrive_message_handler)
-     app.set_parse_mode("html")
+    app.set_parse_mode("html")
     #
     incoming_telegram_download_handler = MessageHandler(
         down_load_media_f,
