@@ -53,7 +53,6 @@ async def get_markup(message: Message):
         "L-UNTAR",
         callback_data=("leechtar").encode("UTF-8")
     ))
-    
     inline_keyboard.append(ikeyboard)
     ikeyboard = []
     ikeyboard.append(InlineKeyboardButton(
