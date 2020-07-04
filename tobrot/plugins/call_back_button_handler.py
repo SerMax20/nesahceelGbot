@@ -62,7 +62,7 @@ async def button(bot, update: CallbackQuery):
                     os.makedirs(new_download_location)
                 await update.message.edit_text("trying to download")
                 # try to download the "link"
-                sagtus, err_message = await fake_etairporpa_call(
+                sagtus, err_message = await call_apropriate_function(
                     aria_i_p,
                     dl_url,
                     new_download_location,
@@ -76,8 +76,17 @@ async def button(bot, update: CallbackQuery):
                     await update.message.edit_text(err_message)
             else:
                 is_zip = False
+                is_unzip = False
+                is_unrar = False
+                is_untar = False
                 if "a" in cb_data:
                     is_zip = True
+                if "zip" in cb_data:
+                    is_unzip = True
+                if "rar" in cb_data:
+                    is_unrar = True
+                if "tar" in cb_data:
+                    is_untar = True
                 current_user_id = update.from_user.id
                 # create an unique directory
                 new_download_location = os.path.join(
@@ -95,12 +104,91 @@ async def button(bot, update: CallbackQuery):
                     dl_url,
                     new_download_location,
                     update.message,
-                    is_zip
+                    is_zip,
+                    cf_name,
+                    is_unzip,
+                    is_unrar,
+                    is_untar
                 )
                 if not sagtus:
                     # if FAILED, display the error message
                     await update.message.edit_text(err_message)
     
+    elif cb_data.startswith("gleech"):
+        # get link from the incoming message
+        dl_url, cf_name, _, _ = await extract_link(update.message.reply_to_message, "GLEECH")
+        LOGGER.info(dl_url)
+        LOGGER.info(cf_name)
+        if dl_url is not None:
+            await update.message.edit_text("extracting links")
+            # start the aria2c daemon
+            aria_i_p = await aria_start()
+            LOGGER.info(aria_i_p)
+            if "_" in cb_data:
+                current_user_id = update.from_user.id
+                # create an unique directory
+                new_download_location = os.path.join(
+                    DOWNLOAD_LOCATION,
+                    str(current_user_id),
+                    str(time.time())
+                )
+                # create download directory, if not exist
+                if not os.path.isdir(new_download_location):
+                    os.makedirs(new_download_location)
+                await update.message.edit_text("trying to download")
+                # try to download the "link"
+                sagtus, err_message = await call_apropriate_function_g(
+                    aria_i_p,
+                    dl_url,
+                    new_download_location,
+                    update.message,
+                    int(cb_data.split("_")[2])
+                    # maybe IndexError / ValueError might occur,
+                    # we don't know, yet!!
+                )
+                if not sagtus:
+                    # if FAILED, display the error message
+                    await update.message.edit_text(err_message)
+            else:
+                is_zip = False
+                is_unzip = False
+                is_unrar = False
+                is_untar = False
+                if "a" in cb_data:
+                    is_zip = True
+                if "zip" in cb_data:
+                    is_unzip = True
+                if "rar" in cb_data:
+                    is_unrar = True
+                if "tar" in cb_data:
+                    is_untar = True
+                current_user_id = update.from_user.id
+                # create an unique directory
+                new_download_location = os.path.join(
+                    DOWNLOAD_LOCATION,
+                    str(current_user_id),
+                    str(time.time())
+                )
+                # create download directory, if not exist
+                if not os.path.isdir(new_download_location):
+                    os.makedirs(new_download_location)
+                await update.message.edit_text("trying to download")
+                # try to download the "link"
+                sagtus, err_message = await call_apropriate_function(
+                    aria_i_p,
+                    dl_url,
+                    new_download_location,
+                    update.message,
+                    is_zip,
+                    cf_name,
+                    is_unzip,
+                    is_unrar,
+                    is_untar
+                )
+                if not sagtus:
+                    # if FAILED, display the error message
+                    await update.message.edit_text(err_message)
+                    
     elif cb_data.startswith("ytdl"):
         i_m_sefg = await update.message.edit_text("processing")
         # LOGGER.info(message)
