@@ -333,7 +333,6 @@ async def call_apropriate_function_g(
         to_upload_file,
         sent_message_to_update_tg_p,
         user_id,
-        g_id
     )
 #
 async def call_apropriate_function_t(
