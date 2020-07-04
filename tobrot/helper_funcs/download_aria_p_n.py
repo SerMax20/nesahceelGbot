@@ -253,8 +253,7 @@ async def call_apropriate_function_g(
     cstom_file_name,
     is_unzip,
     is_unrar,
-    is_untar,
-    user_message
+    is_untar
 ):
     if incoming_link.lower().startswith("magnet:"):
         sagtus, err_message = add_magnet(aria_instance, incoming_link, c_file_name)
