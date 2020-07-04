@@ -129,7 +129,7 @@ async def upload_to_tg(
     return dict_contatining_uploaded_files
 #
 
-async def upload_to_gdrive(file_upload, message, messa_ge, g_id):
+async def upload_to_gdrive(file_upload, message, messa_ge):
     await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
     del_it = await update.message.edit_text("🔊 Now Uploading to ☁️ Cloud!!!")
     subprocess.Popen(('touch', 'rclone.conf'), stdout = subprocess.PIPE)
@@ -165,7 +165,7 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id):
             button.append([pyrogram.InlineKeyboardButton(text="ℹ️ FileIndexUrl ℹ️", url=f"{tam_link}")])
         button_markup = pyrogram.InlineKeyboardMarkup(button)
         await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
-        await messa_ge.reply_text(f"🤖: {file_upload} has been Uploaded successfully to your Cloud <a href='tg://user?id={g_id}'>🤒</a>", reply_markup=button_markup)
+        await messa_ge.reply_text(f"🤖: {file_upload} has been Uploaded successfully to your Cloud", reply_markup=button_markup)
         #await update.message.edit_text(f"""🤖: {file_upload} has been Uploaded successfully to your cloud 🤒\n\n☁️ Cloud URL:  <a href="{gau_link}">FileLink</a>\nℹ️ Direct URL:  <a href="{tam_link}">IndexLink</a>""")
         os.remove(file_upload)
         await del_it.delete()
@@ -201,7 +201,7 @@ async def upload_to_gdrive(file_upload, message, messa_ge, g_id):
             button.append([pyrogram.InlineKeyboardButton(text="ℹ️ FolderIndexUrl ℹ️", url=f"{tam_link}")])
         button_markup = pyrogram.InlineKeyboardMarkup(button)
         await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
-        await messa_ge.reply_text(f"🤖: Folder has been Uploaded successfully to {tt} in your Cloud <a href='tg://user?id={g_id}'>🤒</a>", reply_markup=button_markup)
+        await messa_ge.reply_text(f"🤖: Folder has been Uploaded successfully to {tt} in your Cloud", reply_markup=button_markup)
         #await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
         #await messa_ge.reply_text(f"""🤖: Folder has been Uploaded successfully to {tt} in your cloud 🤒\n\n☁️ Cloud URL:  <a href="{gau_link}">FolderLink</a>\nℹ️ Index Url:. <a href="{tam_link}">IndexLink</a>""")
         shutil.rmtree(file_upload)
