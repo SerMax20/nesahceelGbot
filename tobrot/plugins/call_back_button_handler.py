@@ -183,8 +183,7 @@ async def button(bot, update: CallbackQuery):
                     cf_name,
                     is_unzip,
                     is_unrar,
-                    is_untar,
-                    user_message
+                    is_untar
                 )
                 if not sagtus:
                     # if FAILED, display the error message
