@@ -220,12 +220,12 @@ async def button(bot, update: CallbackQuery):
                 reply_markup=reply_markup
             )
             await i_m_sefg.delete()
-        else:
+         else:
             await i_m_sefg.edit_text(
                 text=text_message,
                 reply_markup=reply_markup
             )
-    else:
+      else:
         await i_m_sefg.edit_text(
             "What you have entered is wrong❌ \nPlease read /help \n"
             f"<b>API Error❗</b>: {cf_name}"
