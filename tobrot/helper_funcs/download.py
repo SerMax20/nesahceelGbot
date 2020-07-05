@@ -68,16 +68,16 @@ async def down_load_media_f(client, message):
             elif message.command[1] == "unrar":
                 file_uploade = await unrar_me(the_real_download_location_g)
                 if file_uploade is not None:
-                    gk_response = await upload_to_gdrive(file_uploade, mess_age, message, user_id)
+                    gk_response = await upload_tg_to_gdrive(file_uploade, mess_age, message, user_id)
                     LOGGER.info(gk_response)
                     
             elif message.command[1] == "untar":
                  file_uploadg = await untar_me(the_real_download_location_g)
                  if file_uploadg is not None:
-                     gau_response = await upload_to_gdrive(file_uploadg, mess_age, message, user_id)
+                     gau_response = await upload_tg_to_gdrive(file_uploadg, mess_age, message, user_id)
                      LOGGER.info(gau_response)
         else:
-            gaut_response = await upload_to_gdrive(the_real_download_location_g, mess_age, message, user_id)
+            gaut_response = await upload_tg_to_gdrive(the_real_download_location_g, mess_age, message, user_id)
             LOGGER.info(gaut_response)
     else:
         #await asyncio.sleep(4)
