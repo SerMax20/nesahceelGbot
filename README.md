@@ -1,4 +1,4 @@
-## I Fork from this repo, [https://github.com/SpEcHiDe/PublicLeech](https://github.com/SpEcHiDe/PublicLeech)
+## I Forked this repo from here, [https://github.com/SpEcHiDe/PublicLeech](https://github.com/SpEcHiDe/PublicLeech)
 & I took some module files from this repo [https://github.com/gautamajay52/TorrentLeech-Gdrive](https://github.com/gautamajay52/TorrentLeech-Gdrive)
 
 I did only small changes, for my use.
