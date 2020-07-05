@@ -215,12 +215,6 @@ async def button(bot, update: CallbackQuery):
                 user_working_dir
             )
             if thumb_image is not None:
-              await update.message.reply_photo(
-                photo=thumb_image,
-                quote=True,
-                caption=text_message,
-                reply_markup=reply_markup
-              )
               await i_m_sefg.delete()
             else:
               await i_m_sefg.edit_text(
