@@ -214,12 +214,20 @@ async def button(bot, update: CallbackQuery):
                 yt_dl_pass_word,
                 user_working_dir
             )
-            await i_m_sefg.edit_text(
+            if thumb_image is not None:
+              await i_m_sefg.reply_photo.edit_text(
+                photo=thumb_image,
+                quote=True,
+                text=text_message,
+                caption=text_message,
+                reply_markup=reply_markup
+              )
+              await i_m_sefg.delete()
+            else:
+              await i_m_sefg.edit_text(
                 text=text_message,
                 reply_markup=reply_markup
-            )
-        else:
-            await i_m_sefg.delete()
+              )
 
 
     elif "|" in cb_data:
