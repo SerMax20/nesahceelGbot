@@ -9,5 +9,4 @@ A Telegram Torrent (and youtube-dl) Leecher based on [Pyrogram](https://github.c
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/surlogu/TGLEECHERNV)
 
 
-###!/usr/bin/env python3
-# (c) Shrimadhav U K & GautamKumar
+### (c) Shrimadhav U K & GautamKumar
