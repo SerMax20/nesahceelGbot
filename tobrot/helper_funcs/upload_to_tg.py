@@ -368,7 +368,7 @@ async def upload_single_file(message, local_file_name, caption_str, from_user, e
                     # quote=True,
                 )
             else:
-                sent_message = await message.edit_video(
+                sent_message = await message.reply_video(
                     video=local_file_name,
                     # quote=True,
                     caption=caption_str,
@@ -425,7 +425,7 @@ async def upload_single_file(message, local_file_name, caption_str, from_user, e
                     # quote=True,
                 )
             else:
-                sent_message = await message.edit_audio(
+                sent_message = await message.reply_audio(
                     audio=local_file_name,
                     # quote=True,
                     caption=caption_str,
@@ -470,7 +470,7 @@ async def upload_single_file(message, local_file_name, caption_str, from_user, e
                     # quote=True,
                 )
             else:
-                sent_message = await message.edit_document(
+                sent_message = await message.reply_document(
                     document=local_file_name,
                     # quote=True,
                     thumb=thumb,
