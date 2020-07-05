@@ -219,16 +219,12 @@ async def button(bot, update: CallbackQuery):
                 caption=text_message,
                 reply_markup=reply_markup
             )
-            await i_m_sefg.delete()
-         else:
             await i_m_sefg.edit_text(
                 text=text_message,
                 reply_markup=reply_markup
             )
-      else:
-        await i_m_sefg.edit_text(
-            "What you have entered is wrong❌ \nPlease read /help \n"
-            f"<b>API Error❗</b>: {cf_name}"
-        )
+         else:
+            await i_m_sefg.delete()
+            
     elif "|" in cb_data:
         await youtube_dl_call_back(bot, update)
