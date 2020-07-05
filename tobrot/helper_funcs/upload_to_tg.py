@@ -125,7 +125,7 @@ async def upload_to_tg(
             )
             if sent_message is not None:
                 dict_contatining_uploaded_files[os.path.basename(local_file_name)] = sent_message.message_id
-    # await message.delete()
+     await message.delete()
     return dict_contatining_uploaded_files
 #
 
