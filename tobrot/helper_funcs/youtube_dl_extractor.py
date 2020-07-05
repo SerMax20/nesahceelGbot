@@ -64,7 +64,7 @@ async def extract_youtube_dl_formats(url, yt_dl_user_name, yt_dl_pass_word, user
         error_message = e_response.replace(
             "please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.", ""
         )
-        return None, error_message, None
+        return error_message, None
     if t_response:
         # logger.info(t_response)
         x_reponse = t_response
