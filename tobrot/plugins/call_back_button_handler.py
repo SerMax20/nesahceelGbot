@@ -218,7 +218,6 @@ async def button(bot, update: CallbackQuery):
                 text=text_message,
                 reply_markup=reply_markup
             )
-            await i_m_sefg.delete()
         else:
             await i_m_sefg.delete()
 
