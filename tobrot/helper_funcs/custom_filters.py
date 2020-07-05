@@ -17,8 +17,8 @@ def message_filter_f(f, m: Message):
                 ("magnet:" in m.text)
             ) or (
             # below checks the TORRENT detection part
-            message.document and
-            message.document.file_name.upper().endswith(".TORRENT")
+            m.document and
+            m.document.file_name.upper().endswith(".TORRENT")
         ) and (
                 # to avoid conflicts with
                 # popular @LinkToFilesBot (s)
