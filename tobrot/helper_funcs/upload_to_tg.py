@@ -386,7 +386,6 @@ async def upload_single_file(message, local_file_name, caption_str, from_user, e
                         message_for_progress_display,
                         start_time
                     )
-                    await message_for_progress_display.delete()
                 )
             if thumb is not None:
                 os.remove(thumb)
@@ -443,7 +442,6 @@ async def upload_single_file(message, local_file_name, caption_str, from_user, e
                         message_for_progress_display,
                         start_time
                     )
-                    await message_for_progress_display.delete()
                 )
             if thumb is not None:
                 os.remove(thumb)
@@ -486,7 +484,6 @@ async def upload_single_file(message, local_file_name, caption_str, from_user, e
                         message_for_progress_display,
                         start_time
                     )
-                    await message_for_progress_display.delete()
                 )
             if thumb is not None:
                 os.remove(thumb)
