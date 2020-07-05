@@ -387,6 +387,7 @@ async def upload_single_file(message, local_file_name, caption_str, from_user, e
                         start_time
                     )
                 )
+                await message_for_progress_display.delete()
             if thumb is not None:
                 os.remove(thumb)
         elif local_file_name.upper().endswith(("MP3", "M4A", "M4B", "FLAC", "WAV")):
