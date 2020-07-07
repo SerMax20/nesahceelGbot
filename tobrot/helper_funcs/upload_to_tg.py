@@ -128,7 +128,7 @@ async def upload_to_tg(
 
 async def upload_to_gdrive(file_upload, message, user_id):
     await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
-    del_it = await message.edit_text("🔊 Now Uploading to ☁️ Cloud!!!")
+    del_it = await message.edit_text("Now Uploading to ☁️ Cloud 💥")
     subprocess.Popen(('touch', 'rclone.conf'), stdout = subprocess.PIPE)
     with open('rclone.conf', 'a', newline="\n") as fole:
         fole.write("[DRIVE]\n")
@@ -209,7 +209,7 @@ async def upload_to_gdrive(file_upload, message, user_id):
 
 async def upload_tg_to_gdrive(file_upload, message, messa_ge, g_id):
     await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
-    del_it = await message.edit_text("🔊 Now Uploading to ☁️ Cloud!!!")
+    del_it = await message.edit_text("Now Uploading to ☁️ Cloud 💥")
     subprocess.Popen(('touch', 'rclone.conf'), stdout = subprocess.PIPE)
     with open('rclone.conf', 'a', newline="\n") as fole:
         fole.write("[DRIVE]\n")
