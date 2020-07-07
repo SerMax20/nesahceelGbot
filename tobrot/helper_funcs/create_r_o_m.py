@@ -73,7 +73,7 @@ async def get_markup(message: Message):
     inline_keyboard = []
 
     reply_text = (
-        "<b>Please select the required option</b> 👇
+        "Please select the required option👇
 Click /alhelp to check available options."
     )
     return reply_text, reply_markup
