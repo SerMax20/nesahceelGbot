@@ -19,7 +19,7 @@ async def get_markup(message: Message):
     inline_keyboard = []
     ikeyboard = []
     ikeyboard.append(InlineKeyboardButton(
-        "LEECH",
+        "LEECH😄",
         callback_data=("leech").encode("UTF-8")
     ))
     ikeyboard.append(InlineKeyboardButton(
@@ -33,58 +33,47 @@ async def get_markup(message: Message):
     inline_keyboard.append(ikeyboard)
     ikeyboard = []
     ikeyboard.append(InlineKeyboardButton(
-        "L-TAR.GZ",
+        "LA",
         callback_data=("leecha").encode("UTF-8")
     ))
     ikeyboard.append(InlineKeyboardButton(
-        "L-UNZIP",
+        "LUZ",
         callback_data=("leechzip").encode("UTF-8")
     ))
     ikeyboard.append(InlineKeyboardButton(
-        "L-UNRAR",
+        "LUR",
         callback_data=("leechrar").encode("UTF-8")
     ))
     ikeyboard.append(InlineKeyboardButton(
-        "L-UNTAR",
+        "LUT",
         callback_data=("leechtar").encode("UTF-8")
     ))
     inline_keyboard.append(ikeyboard)
     ikeyboard = []
     ikeyboard.append(InlineKeyboardButton(
-        "GL-TAR.GZ",
+        "GLA",
         callback_data=("gleecha").encode("UTF-8")
     ))
     ikeyboard.append(InlineKeyboardButton(
-        "GL-UNZIP",
+        "GLUZ",
         callback_data=("gleechzip").encode("UTF-8")
     ))
     ikeyboard.append(InlineKeyboardButton(
-        "GL-UNRAR",
+        "GLUR",
         callback_data=("gleechrar").encode("UTF-8")
     ))
     ikeyboard.append(InlineKeyboardButton(
-        "GL-UNTAR",
+        "GLUT",
         callback_data=("gleechtar").encode("UTF-8")
     ))
     inline_keyboard.append(ikeyboard)
     ikeyboard = []
-    ikeyboard.append(InlineKeyboardButton(
-        "GL-TAR.GZ",
-        callback_data=("gleecha").encode("UTF-8")
-    ))
-    ikeyboard.append(InlineKeyboardButton(
-        "GL-UNZIP",
-        callback_data=("gleechzip").encode("UTF-8")
-    ))
-    ikeyboard.append(InlineKeyboardButton(
-        "GL-UNRAR",
-        callback_data=("gleechrar").encode("UTF-8")
-    ))
     
     reply_markup = InlineKeyboardMarkup(inline_keyboard)
     inline_keyboard = []
 
     reply_text = (
-        "please select the required option"
+        "<b>Please select the required option</b> 👇
+Click /alhelp to check available options."
     )
     return reply_text, reply_markup
