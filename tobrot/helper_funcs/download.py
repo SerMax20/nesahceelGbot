@@ -31,7 +31,7 @@ from tobrot.helper_funcs.create_compressed_archive import unzip_me, unrar_me, un
 async def down_load_media_f(client, message):
     user_id = message.from_user.id
     print(user_id)
-    mess_age = await message.reply_text("...", quote=True)
+    mess_age = await message.reply_text("⏳Checking...", quote=True)
     if not os.path.isdir(DOWNLOAD_LOCATION):
         os.makedirs(DOWNLOAD_LOCATION)
     if message.reply_to_message is not None:
@@ -43,7 +43,7 @@ async def down_load_media_f(client, message):
             file_name=download_location,
             progress=progress_for_pyrogram_g,
             progress_args=(
-                "trying to download", mess_age, c_time
+                "Inprocess to download📥", mess_age, c_time
             )
         )
         end_t = datetime.now()
@@ -77,4 +77,4 @@ async def down_load_media_f(client, message):
             LOGGER.info(gaut_response)
     else:
         #await asyncio.sleep(4)
-        await mess_age.edit_text("Reply to a Telegram Media, to upload to the Cloud Drive.")
+        await mess_age.edit_text("Reply to a Telegram Media, to upload to GDrive.")
